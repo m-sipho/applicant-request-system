@@ -14,7 +14,7 @@ def create_request(request: CreateRequest):
     rules = REQUEST_TYPE_RULES.get(request.request_type)
 
     if not rules:
-        HTTPException(
+        raise HTTPException (
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Unsupported request type"
         )
