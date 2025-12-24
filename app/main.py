@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
-from .schemas import CreateRequest, CreateUser, RoleEnum, Token
+from .schemas import CreateRequest, CreateUser, RoleEnum, Token, ShowRequest
 from .request_types import REQUEST_TYPE_RULES
 from . import models, database
 from .database import engine
@@ -19,13 +19,13 @@ models.Base.metadata.create_all(bind=engine)
 def root():
     return {"message": "Applicant Request System API. Go to /docs for API documentation."}
 
-@app.post("/request", status_code=status.HTTP_201_CREATED)
+@app.post("/request", status_code=status.HTTP_201_CREATED, response_model=ShowRequest)
 def create_request(request: CreateRequest, current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
     rules = REQUEST_TYPE_RULES.get(request.request_type)
     if current_user.role != RoleEnum.student:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Only students can create accounts"
+            detail="Only students can create requests"
         )
 
     if not rules:
@@ -47,7 +47,7 @@ def create_request(request: CreateRequest, current_user: Annotated[CreateUser, D
                 detail=f"Invalid type of field: {field_name}"
             )
     
-    new_request = models.Request(type=request.request_type, description=request.description, data=request.metadata, owner_id=1)
+    new_request = models.Request(type=request.request_type, description=request.description, data=request.metadata, owner_id=current_user.id)
     db.add(new_request)
     db.commit()
     db.refresh(new_request)
@@ -81,7 +81,7 @@ def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Sessio
     user = db.query(models.User).filter(models.User.email == form_data.username).first()
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid credentials"
         )
     if not Hash.verify_password(form_data.password, user.password):

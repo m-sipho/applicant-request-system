@@ -2,6 +2,7 @@ from pydantic import BaseModel, EmailStr, Field
 from typing import Dict, Any
 from .request_types import RequestType
 from enum import Enum
+from datetime import datetime
 
 class StatusEnum(str, Enum):
     SUBMITTED = "SUBMITTED"
@@ -20,6 +21,12 @@ class CreateRequest(BaseModel):
     request_type: RequestType
     description: str
     metadata: Dict[str, Any]
+
+class ShowRequest(BaseModel):
+    id: int
+    type: RequestType
+    status: StatusEnum
+    created_at: datetime
 
 class CreateUser(BaseModel):
     name: str

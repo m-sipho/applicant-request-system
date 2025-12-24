@@ -28,7 +28,7 @@ def verify_token(token: str, credentials_exception):
         if email is None:
             raise credentials_exception
         token_data = TokenData(email=email)
-    except:
+    except InvalidTokenError:
         raise credentials_exception
     
     return token_data
