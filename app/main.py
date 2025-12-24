@@ -21,13 +21,15 @@ def root():
 
 @app.post("/request", status_code=status.HTTP_201_CREATED, response_model=ShowRequest)
 def create_request(request: CreateRequest, current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
-    rules = REQUEST_TYPE_RULES.get(request.request_type)
+    # Authorize
     if current_user.role != RoleEnum.student:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only students can create requests"
         )
 
+    # Validate request type
+    rules = REQUEST_TYPE_RULES.get(request.request_type)
     if not rules:
         raise HTTPException (
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -47,6 +49,7 @@ def create_request(request: CreateRequest, current_user: Annotated[CreateUser, D
                 detail=f"Invalid type of field: {field_name}"
             )
     
+    # Create new request
     new_request = models.Request(type=request.request_type, description=request.description, data=request.metadata, owner_id=current_user.id)
     db.add(new_request)
     db.commit()
@@ -56,6 +59,7 @@ def create_request(request: CreateRequest, current_user: Annotated[CreateUser, D
 
 @app.post("/user", status_code=status.HTTP_201_CREATED)
 def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
+
     # Check for existing user
     existing = db.query(models.User).filter(models.User.email == request.email).first()
     if existing:
@@ -63,6 +67,8 @@ def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
             status_code=status.HTTP_409_CONFLICT,
             detail="Email already registered"
         )
+    
+    # Create new applicant
     new_user = models.User(
         name=request.name,
         email=request.email,
@@ -75,8 +81,38 @@ def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
 
     return new_user
 
+@app.post("/staff")
+def create_staff(request: CreateUser, current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
+    # Authorize
+    if current_user.role != RoleEnum.admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only admins can create staff accounts"
+        )
+    
+    # Avoid duplicates
+    existing = db.query(models.User).filter(models.User.email == request.email).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Email already exists"
+        )
+    
+    # Create staff
+    new_staff = models.User(
+        name=request.name,
+        email=request.email,
+        password=Hash.get_password_hashed(request.password),
+        role=RoleEnum.staff
+    )
 
-@app.post("/login")
+    db.add(new_staff)
+    db.commit()
+    db.refresh(new_staff)
+    return new_staff
+
+
+@app.post("/login", status_code=status.HTTP_201_CREATED)
 def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: Session = Depends(database.get_db)) -> Token:
     user = db.query(models.User).filter(models.User.email == form_data.username).first()
     if not user:
