@@ -10,10 +10,41 @@ from typing import Annotated
 from .token import create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
 from datetime import timedelta
 from .oauth2 import get_current_user
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
+
+ENABLE_ADMIN_CREATION = True
+
+if ENABLE_ADMIN_CREATION:
+    @app.post("/bootstrap/admin")
+    def create_admin(secret: str, request: CreateUser, db: Session = Depends(database.get_db)):
+
+        # Check if admin already exists
+        admin_exists = db.query(models.User).filter(models.User.role == RoleEnum.admin).first()
+        if admin_exists:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin already exists")
+        
+        if secret != os.getenv("ADMIN_SECRET"):
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid secret")
+        
+        admin = models.User(
+            name=request.name,
+            email=request.email,
+            password=Hash.get_password_hashed(request.password),
+            role=RoleEnum.admin
+        )
+
+        db.add(admin)
+        db.commit()
+        db.refresh(admin)
+
+        return {"message": "Admin created"}
 
 @app.get("/")
 def root():
