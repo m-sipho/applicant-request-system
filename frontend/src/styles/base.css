@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: var(--family-font);
+}
+
+body {
+    height: 100dvh;
+    background-color: var(--bg-body);
+    color: var(--card-text);
+    line-height: 1.5;
+}

@@ -1,0 +1,12 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-body: #e0eaed;
+    --primary-text: #f4f2f2;
+    --muted-text: #9ca3af;
+    --bg-card: #ffffff;
+    --input-border: ;
+    --card-box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    --card-text: #000000;
+    --family-font: 'Inter', system-ui, sans-serif;
+}
