@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from .. import database, models, hashing
 
 router = APIRouter(
-    prefix="/user",
-    tags=["User"]
+    prefix="/register",
+    tags=["Register"]
 )
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
