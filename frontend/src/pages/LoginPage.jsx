@@ -1,4 +1,5 @@
 import { Lock, Mail, ArrowRight } from "lucide-react"
+import { Link } from "react-router-dom"
 
 function LoginPage() {
     return (
@@ -37,7 +38,7 @@ function LoginPage() {
                     </div>
                 </form>
 
-                <div className="muted">Don't have an account? <a href="" className="create-account">Create Account</a></div>
+                <div className="muted">Don't have an account? <Link to="/register" className="create-account">Create Account</Link></div>
 
                 <div className="credentials-header">
                     <span className="demo-header muted">Demo Credentials:</span>
