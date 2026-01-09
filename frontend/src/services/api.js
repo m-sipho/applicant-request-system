@@ -31,16 +31,16 @@ export async function fetchWithAuth(endpoint, getToken, options = {}) {
     return response.json()
 }
 
-export async function loginUser(username, password) {
+export async function loginUser(email, password) {
     return fetchWithAuth("/login", () => null, {
         method: "POST",
-        body: JSON.stringify({username, password})
+        body: JSON.stringify({email, password})
     });
 }
 
 export async function registerUser(fullName, email, password) {
     return fetchWithAuth("/register", () => null, {
         method: "POST",
-        body: JSON.stringify({fullName, username, password})
+        body: JSON.stringify({fullName, email, password})
     });
 }
