@@ -7,7 +7,7 @@ function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
@@ -18,6 +18,17 @@ function LoginPage() {
             navigate("/dashboard")
         }
     }, [navigate]);
+
+    // Show error for 3 seconds
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                setError(null);
+            }, 2000)
+
+            return () => clearTimeout(timer);
+        }
+    }, [error])
 
     async function handleSubmit(e) {
         e.preventDefault();
