@@ -48,6 +48,10 @@ export async function loginUser(email, password) {
 export async function registerUser(fullName, email, password) {
     return fetchWithAuth("/register", () => null, {
         method: "POST",
-        body: JSON.stringify({fullName, email, password})
+        body: JSON.stringify({
+            name: fullName,
+            email,
+            password
+        })
     });
 }
