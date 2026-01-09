@@ -21,6 +21,13 @@ def create_admin(secret: str, request: CreateUser, db: Session = Depends(databas
     if secret != os.getenv("ADMIN_SECRET"):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid secret")
     
+    # Check if the password has at least 8 characters
+    if len(request.password) < 8:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password needs 8+ characters"
+        )
+    
     admin = models.User(
         name=request.name,
         email=request.email,

@@ -19,6 +19,13 @@ def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
             detail="Email already registered"
         )
     
+    # Check if the password has at least 8 characters
+    if len(request.password) < 8:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password needs 8+ characters"
+        )
+    
     # Create new applicant
     new_user = models.User(
         name=request.name,
