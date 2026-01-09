@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr
 from typing import Dict, Any
 from .request_types import RequestType
 from enum import Enum
@@ -31,7 +31,7 @@ class ShowRequest(BaseModel):
 class CreateUser(BaseModel):
     name: str
     email: EmailStr
-    password: str = Field(min_length=8)
+    password: str
 
 class Token(BaseModel):
     access_token: str
