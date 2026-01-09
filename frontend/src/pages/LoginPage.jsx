@@ -14,7 +14,7 @@ function LoginPage() {
     // Checks if the user has already logged in
     useEffect(() => {
         const token = sessionStorage.getItem("token");
-        if (token) {
+        if (token && token !== "undefined") {
             navigate("/dashboard")
         }
     }, [navigate]);
@@ -57,17 +57,17 @@ function LoginPage() {
 
     function applicant() {
         setEmail("applicant@gmail.com")
-        setPassword("applicant");
+        setPassword("applicantpass");
     }
 
     function staff() {
         setEmail("staff@system.com");
-        setPassword("staff");
+        setPassword("staffpass");
     }
 
     function admin() {
-        setEmail("admin@gmail.com");
-        setPassword("admin");
+        setEmail("admin@system.com");
+        setPassword("adminpass");
     }
 
     return (
