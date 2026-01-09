@@ -39,3 +39,8 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: str | None = None
+
+class RegisterUser(BaseModel):
+    id: int
+    email: str
+    role: RoleEnum

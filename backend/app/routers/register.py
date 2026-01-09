@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from ..schemas import CreateUser, RoleEnum
+from ..schemas import CreateUser, RoleEnum, RegisterUser
 from sqlalchemy.orm import Session
 from .. import database, models, hashing
 
@@ -8,7 +8,7 @@ router = APIRouter(
     tags=["Register"]
 )
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=RegisterUser)
 def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
 
     # Check for existing user
