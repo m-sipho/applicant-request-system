@@ -129,6 +129,10 @@ input:focus {
     color: var(--primary-color);
 }
 
+.create-account:hover {
+    text-decoration: underline;
+}
+
 .credentials {
     padding: 18px;
     display: flex;
