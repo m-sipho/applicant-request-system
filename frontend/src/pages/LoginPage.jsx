@@ -39,6 +39,8 @@ function LoginPage() {
             setError(err.message || "Login Failed")
         } finally {
             setLoading(false);
+            setEmail("");
+            setPassword("");
         }
     }
 
