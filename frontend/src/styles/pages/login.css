@@ -198,3 +198,11 @@ input:focus {
     border: 1px solid rgba(255, 0, 0, 0.686);
     transition: all 0.2s;
 }
+
+.success {
+    color: rgba(0, 128, 0, 0.641);
+}
+
+.redirect {
+    font-size: 10px;
+}
