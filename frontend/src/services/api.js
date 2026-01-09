@@ -32,9 +32,16 @@ export async function fetchWithAuth(endpoint, getToken, options = {}) {
 }
 
 export async function loginUser(email, password) {
+    const formData = new URLSearchParams();
+    formData.append("username", email);
+    formData.append("password", password);
+
     return fetchWithAuth("/login", () => null, {
         method: "POST",
-        body: JSON.stringify({email, password})
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: formData.toString()
     });
 }
 
