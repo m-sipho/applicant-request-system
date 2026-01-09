@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from . import models
 from .database import engine
 from dotenv import load_dotenv
-from .routers import root, authentication, bootstrap, requests, user, staff
+from .routers import register, root, authentication, bootstrap, requests, staff
 from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
@@ -28,5 +28,5 @@ if ENABLE_ADMIN_CREATION:
 
 app.include_router(authentication.router)
 app.include_router(requests.router)
-app.include_router(user.router)
+app.include_router(register.router)
 app.include_router(staff.router)
