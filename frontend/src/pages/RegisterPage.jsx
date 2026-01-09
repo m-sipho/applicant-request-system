@@ -1,4 +1,4 @@
-import { UserPlus, User, Mail, ArrowRight, Lock } from "lucide-react"
+import { UserRoundPlus, UserRound, Mail, ArrowRight, Lock } from "lucide-react"
 import { Link } from "react-router-dom"
 
 function RegisterPage() {
@@ -6,7 +6,7 @@ function RegisterPage() {
         <div className="overall-container">
             <div className="form-container">
                 <div  className="lock">
-                    <UserPlus size={50}/>
+                    <UserRoundPlus size={30}/>
                 </div>
 
                 <div className="sub-header">
@@ -18,7 +18,7 @@ function RegisterPage() {
                     <div className="input-wrapper">
                         <label>Full Name</label>
                         <div>
-                            <User className="input-icon" />
+                            <UserRound className="input-icon" />
                             <input type="text" placeholder="Itachi Uchiha" required/>
                         </div>
                     </div>
