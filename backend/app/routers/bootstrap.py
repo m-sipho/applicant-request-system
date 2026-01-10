@@ -13,13 +13,13 @@ router = APIRouter(
 @router.post("/admin")
 def create_admin(secret: str, request: CreateUser, db: Session = Depends(database.get_db)):
 
+    if secret != os.getenv("ADMIN_SECRET"):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid secret")
+
     # Check if admin already exists
     admin_exists = db.query(models.User).filter(models.User.role == RoleEnum.admin).first()
     if admin_exists:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin already exists")
-    
-    if secret != os.getenv("ADMIN_SECRET"):
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid secret")
     
     # Check if the password has at least 8 characters
     if len(request.password) < 8:
