@@ -6,9 +6,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./requests.db")
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+if "sqlite" in DATABASE_URL:
+    connect_arg = {"check_same_thread": False}
+else:
+    connect_arg = {}
+
+engine = create_engine(DATABASE_URL, connect_args=connect_arg)
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
