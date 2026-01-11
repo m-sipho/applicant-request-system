@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from ..schemas import ShowRequest, CreateRequest, CreateUser, RoleEnum
+from ..schemas import ShowRequest, CreateRequest, CreateUser, RoleEnum, RequestOut
 from typing import Annotated
 from ..oauth2 import get_current_user
 from sqlalchemy.orm import Session
 from ..request_types import REQUEST_TYPE_RULES
 from .. import database, models
+from typing import List
 
 router = APIRouter(
     prefix="/request",
@@ -48,3 +49,9 @@ def create_request(request: CreateRequest, current_user: Annotated[CreateUser, D
     db.refresh(new_request)
 
     return new_request
+
+@router.get("/", status_code=status.HTTP_200_OK, response_model=List[RequestOut])
+def get_all_requests(current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
+    requests = db.query(models.Request).filter(models.Request.owner_id == current_user.id).all()
+
+    return requests
