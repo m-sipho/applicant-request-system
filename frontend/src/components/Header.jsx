@@ -6,8 +6,8 @@ function Header({ role, username }) {
             <h2 className="header-title">Dashboard</h2>
             <div className="header-right">
                 <div className="sub-left">
-                    <div className="username">Username</div>
-                    <div className="role">Applicant</div>
+                    <div className="username">{username}</div>
+                    <div className="role">{role}</div>
                 </div>
                 <div className="logout-container">
                     <LogOut className="logout" size={30} ><title>Logout</title></LogOut>
