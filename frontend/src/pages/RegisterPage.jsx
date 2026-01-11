@@ -120,7 +120,7 @@ function RegisterPage() {
                         </div>
                     )}
 
-                    <button type="submit" className="btn-primary">
+                    <button type="submit" disabled={loading} className="btn-primary">
                         {loading ? (
                             <>
                                 <LoaderCircle className="animate-spin" />
