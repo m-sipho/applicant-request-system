@@ -4,4 +4,11 @@
 /* Base styles */
 @import "./styles/base.css";
 
+/* Login/Register styles */
 @import "./styles/pages/login.css";
+
+/* Header styles */
+@import "./styles/components/header.css";
+
+/* Dashbords styles */
+@import "./styles/pages/dashboard.css";
