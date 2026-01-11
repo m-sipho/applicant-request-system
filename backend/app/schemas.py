@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from .request_types import RequestType
 from enum import Enum
 from datetime import datetime
@@ -44,3 +44,17 @@ class RegisterUser(BaseModel):
     id: int
     email: str
     role: RoleEnum
+
+class RequestOut(BaseModel):
+    id: int
+    type: str
+    status: str
+    description: str
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+    assignee_id: Optional[int] = None
+    owner_id: int
+    data: Dict[str, Any]
+
+    class Config:
+        from_attributes = True
