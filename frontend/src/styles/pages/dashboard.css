@@ -122,8 +122,8 @@ td:last-child {
     transform: scale(110%);
 }
 
-.Submitted, .Under-review,
-.Approved, .Rejected {
+.SUBMITTED, .UNDER-REVIEW,
+.APPROVED, .REJECTED {
     display: flex;
     align-items: center;
     gap: .5rem;
@@ -134,25 +134,25 @@ td:last-child {
     font-weight: 500;
 }
 
-.Submitted {
+.SUBMITTED {
     background-color: rgba(207, 207, 207, 0.352);
     border: 1px solid rgb(188, 188, 188);
     color: rgb(137, 137, 137);
 }
 
-.Under-review {
+.UNDER_REVIEW {
     background-color: rgba(238, 200, 130, 0.399);
     border: 1px solid rgb(255, 170, 12);
     color: rgb(223, 145, 0);
 }
 
-.Approved {
+.APPROVED {
     background-color: rgba(141, 231, 141, 0.437) ;
     border: 1px solid rgb(1, 177, 1);
     color: green;
 }
 
-.Rejected {
+.REJECTED {
     background-color: rgba(239, 155, 155, 0.459);
     border: 1px solid rgb(255, 39, 39);
     color: rgb(253, 16, 16);
