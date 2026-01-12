@@ -1,7 +1,6 @@
 import ApplicationDashboard from "./dashboard/applicantDashboard"
-import { allRequests, fetchWithAuth } from "../services/api"
+import { allRequests } from "../services/api"
 import { useState, useEffect } from "react";
-import { use } from "react";
 
 function DashboardPage() {
     const [requests, setRequests] = useState([])
