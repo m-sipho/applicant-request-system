@@ -13,7 +13,7 @@ class StatusEnum(str, Enum):
     CLOSED = "CLOSED"
 
 class RoleEnum(str, Enum):
-    student = "student"
+    applicant = "applicant"
     staff = "staff"
     admin = "admin"
 
@@ -55,6 +55,14 @@ class RequestOut(BaseModel):
     assignee_id: Optional[int] = None
     owner_id: int
     data: Dict[str, Any]
+
+    class Config:
+        from_attributes = True
+
+class UserOut(BaseModel):
+    id: int
+    email: EmailStr
+    role: str
 
     class Config:
         from_attributes = True

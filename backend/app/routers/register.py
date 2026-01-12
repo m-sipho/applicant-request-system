@@ -31,7 +31,7 @@ def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
         name=request.name,
         email=request.email,
         password=hashing.Hash.get_password_hashed(request.password),
-        role=RoleEnum.student
+        role=RoleEnum.applicant
     )
     db.add(new_user)
     db.commit()

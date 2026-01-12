@@ -15,7 +15,7 @@ router = APIRouter(
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=ShowRequest)
 def create_request(request: CreateRequest, current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
     # Authorize
-    if current_user.role != RoleEnum.student:
+    if current_user.role != RoleEnum.applicant:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only students can create requests"
