@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 import { Plus, Inbox, FileText, MoveRight, Clock8, Eye, CircleCheckBig, CircleX } from "lucide-react";
 
-function ApplicationDashboard({role, username, requests}) {
+function ApplicantDashboard({role, username, requests}) {
     const statusContent = (status) => {
         if (status === "SUBMITTED") {
             return (
@@ -102,4 +102,4 @@ function ApplicationDashboard({role, username, requests}) {
     )
 }
 
-export default ApplicationDashboard
+export default ApplicantDashboard

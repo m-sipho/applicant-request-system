@@ -1,4 +1,4 @@
-import ApplicationDashboard from "./dashboard/applicantDashboard"
+import ApplicantDashboard from "./dashboard/applicantDashboard"
 import { allRequests } from "../services/api"
 import { useState, useEffect } from "react";
 
@@ -35,7 +35,7 @@ function DashboardPage() {
         fetchData();
     }, [])
     return (
-        <ApplicationDashboard role="Applicant" username="mthokozisisipho17@gmail.com" requests={requests}/>
+        <ApplicantDashboard role="Applicant" username="mthokozisisipho17@gmail.com" requests={requests}/>
     )
 }
 
