@@ -3,7 +3,7 @@ import { Plus, Inbox, FileText, MoveRight, Clock8, Eye, CircleCheckBig, CircleX 
 
 function ApplicationDashboard({role, username, requests}) {
     const statusContent = (status) => {
-        if (status === "Submitted") {
+        if (status === "SUBMITTED") {
             return (
                 <div className={status}>
                     <Clock8 size={14} />
@@ -12,7 +12,7 @@ function ApplicationDashboard({role, username, requests}) {
             )
         }
 
-        if (status === "Under-review") {
+        if (status === "UNDER-REVIEW") {
             return (
                 <div className={status}>
                     <Eye size={14} />
@@ -21,7 +21,7 @@ function ApplicationDashboard({role, username, requests}) {
             )
         }
 
-        if (status === "Approved") {
+        if (status === "APPROVED") {
             return (
                 <div className={status}>
                     <CircleCheckBig size={14} />
@@ -30,7 +30,7 @@ function ApplicationDashboard({role, username, requests}) {
             )
         }
 
-        if (status === "Rejected") {
+        if (status === "REJECTED") {
             return (
                 <div className={status}>
                     <CircleX size={14} />
@@ -66,17 +66,17 @@ function ApplicationDashboard({role, username, requests}) {
                                         <td className="subject-container">
                                             <div className="file-icon"><FileText size={15} /></div>
                                             <div className="subject-content">
-                                                <span className="subject">{request.subject}</span>
+                                                <span className="subject">{request.type}</span>
                                                 <span className="muted">ID: #{request.id}</span>
                                             </div>
                                         </td>
                                         <td>
                                             <div className="time-container">
-                                                <div>{request.createTime}</div>
-                                                <div className="muted">Updated: {request.updateTime}</div>
+                                                <div>{request.created_at}</div>
+                                                {request.updated_at === null ? <></> : <div className="muted">Updated: {request.updated_at}</div>}
                                             </div>
                                         </td>
-                                        <td>{request.assignee}</td>
+                                        <td>{request.assignee_id}</td>
                                         {/* <td>{request.status}</td> */}
                                         <td>
                                             {statusContent(request.status)}

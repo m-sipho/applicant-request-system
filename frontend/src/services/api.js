@@ -4,6 +4,10 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000"
 export async function fetchWithAuth(endpoint, getToken, options = {}) {
     const token = await getToken();
 
+    if (!token) {
+        console.error("No token found")
+    }
+
     console.log(`[API] fetching ${endpoint} with token: ${token?.substring(0, 10)}...`);
 
     const response = await fetch(
@@ -54,4 +58,10 @@ export async function registerUser(fullName, email, password) {
             password
         })
     });
+}
+
+export async function allRequests() {
+    return fetchWithAuth("/request/all", () => (sessionStorage.getItem("token")), {
+        method: "GET",
+    })
 }
