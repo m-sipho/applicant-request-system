@@ -50,7 +50,7 @@ def create_request(request: CreateRequest, current_user: Annotated[CreateUser, D
 
     return new_request
 
-@router.get("/", status_code=status.HTTP_200_OK, response_model=List[RequestOut])
+@router.get("/all", status_code=status.HTTP_200_OK, response_model=List[RequestOut])
 def get_all_requests(current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
     requests = db.query(models.Request).filter(models.Request.owner_id == current_user.id).all()
 
