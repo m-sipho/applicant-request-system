@@ -76,7 +76,7 @@ function ApplicantDashboard({user, requests}) {
                                                 {request.updated_at === null ? <></> : <div className="muted">Updated: {request.updated_at}</div>}
                                             </div>
                                         </td>
-                                        <td>{request.assignee_id}</td>
+                                        <td>{request.assignee_id === null ? "---" : request.assignee}</td>
                                         {/* <td>{request.status}</td> */}
                                         <td>
                                             {statusContent(request.status)}
