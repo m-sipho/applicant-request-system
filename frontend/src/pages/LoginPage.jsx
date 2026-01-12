@@ -87,14 +87,14 @@ function LoginPage() {
                         <label>Email</label>
                         <div>
                             <Mail className="input-icon" />
-                            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@example.com" required/>
+                            <input type="email" disabled={loading} value={email} onChange={e => setEmail(e.target.value)} placeholder="your@example.com" required/>
                         </div>
                     </div>
                     <div className="input-wrapper">
                         <label>Password</label>
                         <div>
                             <Lock className="input-icon" />
-                            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required/>
+                            <input type="password" disabled={loading} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required/>
                         </div>
                     </div>
 
