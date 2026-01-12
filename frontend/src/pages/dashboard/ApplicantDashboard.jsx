@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 import { Plus, Inbox, FileText, MoveRight, Clock8, Eye, CircleCheckBig, CircleX } from "lucide-react";
 
-function ApplicantDashboard({user, requests}) {
+function ApplicantDashboard({user, requests, onLogout}) {
     const statusContent = (status) => {
         if (status === "SUBMITTED") {
             return (
@@ -42,7 +42,7 @@ function ApplicantDashboard({user, requests}) {
 
     return (
         <>
-            <Header user={user} />
+            <Header user={user} onLogout={onLogout} />
             <div className="layout-container">
                 <div className="layout-header">
                     <h2>My Requests</h2>

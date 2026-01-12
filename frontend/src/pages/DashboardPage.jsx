@@ -1,10 +1,13 @@
 import ApplicantDashboard from "./dashboard/applicantDashboard"
 import { allRequests, user } from "../services/api"
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 function DashboardPage() {
     const [requests, setRequests] = useState([])
     const [currentUser, setCurrentUser] = useState("")
+
+    const navigate = useNavigate();
     
     useEffect(() => {
         const fetchData = async () => {
@@ -35,9 +38,17 @@ function DashboardPage() {
         };
         fetchData();
     }, [])
+
+    async function handleLogOut(e) {
+        e.preventDefault();
+
+        sessionStorage.removeItem("token");
+        navigate("/login")
+    }
+
     return (
         currentUser.role === "applicant" &&
-            <ApplicantDashboard user={currentUser} requests={requests}/>
+            <ApplicantDashboard user={currentUser} requests={requests} onLogout={handleLogOut} />
     )
 }
 
