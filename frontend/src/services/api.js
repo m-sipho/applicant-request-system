@@ -65,3 +65,9 @@ export async function allRequests() {
         method: "GET",
     })
 }
+
+export async function user() {
+    return fetchWithAuth("/users/me", () => (sessionStorage.getItem("token")), {
+        method: "GET",
+    })
+}
