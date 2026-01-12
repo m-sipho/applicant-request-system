@@ -1,14 +1,18 @@
 import ApplicantDashboard from "./dashboard/applicantDashboard"
-import { allRequests } from "../services/api"
+import { allRequests, user } from "../services/api"
 import { useState, useEffect } from "react";
 
 function DashboardPage() {
     const [requests, setRequests] = useState([])
+    const [currentUser, setCurrentUser] = useState("")
     
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const data = await allRequests();
+                const getUser = await user();
+
+                setCurrentUser(getUser);
 
                 // Change ISO format date to local time
                 data.map(request => {
@@ -24,9 +28,6 @@ function DashboardPage() {
 
                 })
 
-                console.log("[API] returns", data);
-                console.log(data.length)
-
                 setRequests(data);
             } catch (err) {
                 console.error("Failed to fetch requests", err)
@@ -35,7 +36,8 @@ function DashboardPage() {
         fetchData();
     }, [])
     return (
-        <ApplicantDashboard role="Applicant" username="mthokozisisipho17@gmail.com" requests={requests}/>
+        currentUser.role === "applicant" &&
+            <ApplicantDashboard user={currentUser} requests={requests}/>
     )
 }
 
