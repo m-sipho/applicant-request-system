@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from . import models
 from .database import engine
 from dotenv import load_dotenv
-from .routers import register, root, authentication, bootstrap, requests, staff
+from .routers import register, root, authentication, bootstrap, requests, staff, users
 from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
@@ -30,3 +30,4 @@ app.include_router(authentication.router)
 app.include_router(requests.router)
 app.include_router(register.router)
 app.include_router(staff.router)
+app.include_router(users.router)
