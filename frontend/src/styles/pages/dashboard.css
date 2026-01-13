@@ -22,6 +22,11 @@
     color: var(--primary-text);
     border: none;
     border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-request:hover {
+    background-color: var(--primary-hover);
 }
 
 .table-container {
