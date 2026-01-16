@@ -5,5 +5,5 @@ router = APIRouter(
 )
 
 @router.get("/")
-def root():
+async def root():
     return {"message": "Applicant Request System API. Go to /docs for API documentation."}

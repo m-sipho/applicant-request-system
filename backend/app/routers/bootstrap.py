@@ -11,7 +11,7 @@ router = APIRouter(
 
 
 @router.post("/admin")
-def create_admin(secret: str, request: CreateUser, db: Session = Depends(database.get_db)):
+async def create_admin(secret: str, request: CreateUser, db: Session = Depends(database.get_db)):
 
     if secret != os.getenv("ADMIN_SECRET"):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid secret")

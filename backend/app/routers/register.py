@@ -9,7 +9,7 @@ router = APIRouter(
 )
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=RegisterUser)
-def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
+async def create_user(request: CreateUser, db: Session = Depends(database.get_db)):
 
     # Check for existing user
     existing = db.query(models.User).filter(models.User.email == request.email).first()

@@ -12,7 +12,7 @@ router = APIRouter(
 
 
 @router.post("/", response_model=RegisterUser)
-def create_staff(request: CreateUser, current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
+async def create_staff(request: CreateUser, current_user: Annotated[CreateUser, Depends(get_current_user)], db: Session = Depends(database.get_db)):
     # Authorize
     if current_user.role != RoleEnum.admin:
         raise HTTPException(

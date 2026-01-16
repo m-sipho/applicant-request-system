@@ -9,5 +9,5 @@ router = APIRouter(
 )
 
 @router.get("/me", status_code=status.HTTP_200_OK, response_model=UserOut)
-def get_current_user(current_user: Annotated[CreateUser, Depends(get_current_user)]):
+async def get_current_user(current_user: Annotated[CreateUser, Depends(get_current_user)]):
     return current_user
