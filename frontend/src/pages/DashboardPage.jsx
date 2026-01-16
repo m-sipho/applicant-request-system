@@ -19,7 +19,8 @@ function DashboardPage() {
 
                 // Change ISO format date to local time
                 data.map(request => {
-                    const dateObject = new Date(request.created_at);
+                    const utcTime = request.created_at.replace(' ', 'T') + 'Z'
+                    const dateObject = new Date(utcTime);
                     const month = dateObject.toLocaleString("default", {month: "short"});
                     const day = dateObject.getDate();
                     const year = dateObject.getFullYear();
