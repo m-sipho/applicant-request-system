@@ -71,3 +71,21 @@ export async function user() {
         method: "GET",
     })
 }
+
+export async function createRequest(requestType, description, studentNumber, moduleCode) {
+    const requestMetadata = {
+        student_number: studentNumber
+    };
+
+    if (requestType === "REMARKING SCRIPT" || requestType === "AEGROTAT/SPECIAL EXAM") {
+        requestMetadata.module_code = moduleCode; 
+    }
+    return fetchWithAuth("/request", () => (sessionStorage.getItem("token")), {
+        method: "POST",
+        body: JSON.stringify({
+            request_type: requestType,
+            description: description,
+            metadata: requestMetadata
+        })
+    })
+}
