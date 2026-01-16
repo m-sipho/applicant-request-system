@@ -1,7 +1,10 @@
+import { useState } from "react";
 import Header from "../../components/Header";
 import { Plus, Inbox, FileText, MoveRight, Clock8, Eye, CircleCheckBig, CircleX } from "lucide-react";
+import NewRequestModal from "./NewRequestModal";
 
 function ApplicantDashboard({user, requests, onLogout}) {
+    const [isModalOpen, setModalOpen] = useState(false);
     const statusContent = (status) => {
         if (status === "SUBMITTED") {
             return (
@@ -46,7 +49,10 @@ function ApplicantDashboard({user, requests, onLogout}) {
             <div className="layout-container">
                 <div className="layout-header">
                     <h2>My Requests</h2>
-                    <button className="btn-request"><Plus className="add-plus" /><span className="new-request-btn">New Request</span></button>
+                    <button className="btn-request" onClick={() => (setModalOpen(true))}>
+                        <Plus className="add-plus" />
+                        <span className="new-request-btn">New Request</span>
+                    </button>
                 </div>
                 {requests && requests.length > 0 ? (
                     <div className="table-container">
@@ -98,6 +104,9 @@ function ApplicantDashboard({user, requests, onLogout}) {
                     </div>
                 )}
             </div>
+            {isModalOpen &&
+                <NewRequestModal onClose={() => (setModalOpen(false))} />
+            }
         </>
     )
 }
