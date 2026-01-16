@@ -18,7 +18,7 @@ def create_request(request: CreateRequest, current_user: Annotated[CreateUser, D
     if current_user.role != RoleEnum.applicant:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Only students can create requests"
+            detail="Only applicants can create requests"
         )
 
     # Validate request type
