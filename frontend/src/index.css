@@ -10,5 +10,8 @@
 /* Header styles */
 @import "./styles/components/header.css";
 
-/* Dashbords styles */
+/* Dashboards styles */
 @import "./styles/pages/dashboard.css";
+
+/* Modal styles */
+@import "./styles/pages/modal.css";
