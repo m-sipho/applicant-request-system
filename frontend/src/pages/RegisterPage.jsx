@@ -59,7 +59,7 @@ function RegisterPage() {
         success ? (
             <div className="overall-container">
                 <div className="form-container">
-                    <CircleCheckBig className="success" size={70} />
+                    <CircleCheckBig className="success" size={50} />
                     <div className="sub-header">
                         <h2>Success</h2>
                         <div className="muted">Registration Successful.</div>
@@ -99,7 +99,7 @@ function RegisterPage() {
                         </div>
                     )}
 
-                    <button type="submit" disabled={loading} className="btn-primary">
+                    <button type="submit" disabled={loading} className={`btn-primary ${loading ? 'disabled' : ''}`}>
                         {loading ? (
                             <>
                                 <LoaderCircle className="animate-spin" />
