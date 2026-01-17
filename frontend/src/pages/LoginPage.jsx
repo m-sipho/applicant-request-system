@@ -120,20 +120,20 @@ function LoginPage() {
                     </button>
                 </form>
 
-                <div className="muted">Don't have an account? <Link to="/register" className="create-account">Create Account</Link></div>
+                <div className="muted">Don't have an account? <Link to="/register" className={`create-account ${loading ? 'disabled' : ''}`}>Create Account</Link></div>
 
                 <div className="line"></div>
 
                 <div className="credentials-header">
                     <span className="muted demo-header">QUICK DEMO ACCESS</span>
                     <div className="credentials">
-                        <div className="users muted" onClick={applicant}>
+                        <div className={`users muted ${loading ? 'disabled' : ''}`} onClick={applicant}>
                             <UserRound /> Applicant
                         </div>
-                        <div className="users muted" onClick={staff}>
+                        <div className={`users muted ${loading ? 'disabled' : ''}`} onClick={staff}>
                             <ContactRound /> Staff
                         </div>
-                        <div className="users muted" onClick={admin}>
+                        <div className={`users muted ${loading ? 'disabled' : ''}`} onClick={admin}>
                             <ShieldUser /> Admin
                         </div>
                     </div>

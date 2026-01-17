@@ -138,7 +138,7 @@ function RegisterPage() {
                     </div>
                 </form>
 
-                <div className="muted">Already have an account? <Link to="/login" className="create-account">Log in</Link></div>
+                <div className="muted">Already have an account? <Link to="/login" className={`create-account ${loading ? 'disabled' : ''}`}>Log in</Link></div>
             </div>
         </div>
         )
