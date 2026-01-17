@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Header from "../../components/Header";
-import { Plus, Inbox, FileText, MoveRight, Clock8, Eye, CircleCheckBig, CircleX } from "lucide-react";
-import NewRequestModal from "./NewRequestModal";
+import { Plus, Inbox, FileText, MoveRight, Clock8, Eye, CircleCheckBig, CircleX, LoaderCircle } from "lucide-react";
+import NewRequestModal from "../../modals/NewRequestModal";
 
-function ApplicantDashboard({user, requests, onLogout}) {
+function ApplicantDashboard({user, requests, onLogout, onCreateRequest}) {
     const [isModalOpen, setModalOpen] = useState(false);
     const statusContent = (status) => {
         if (status === "SUBMITTED") {
@@ -79,10 +79,10 @@ function ApplicantDashboard({user, requests, onLogout}) {
                                         <td>
                                             <div className="time-container">
                                                 <div>{request.created_at}</div>
-                                                {request.updated_at === null ? <></> : <div className="muted">Updated: {request.updated_at}</div>}
+                                                {(request.updated_at === null || request.updated_at === undefined) ? <></> : <div className="muted">Updated: {request.updated_at}</div>}
                                             </div>
                                         </td>
-                                        <td>{request.assignee_id === null ? "---" : request.assignee}</td>
+                                        <td>{(request.assignee_id === null || request.assignee_id === undefined) ? "---" : request.assignee}</td>
                                         {/* <td>{request.status}</td> */}
                                         <td>
                                             {statusContent(request.status)}
@@ -105,7 +105,7 @@ function ApplicantDashboard({user, requests, onLogout}) {
                 )}
             </div>
             {isModalOpen &&
-                <NewRequestModal onClose={() => (setModalOpen(false))} />
+                <NewRequestModal requestCreation={onCreateRequest} onClose={() => (setModalOpen(false))} />
             }
         </>
     )
