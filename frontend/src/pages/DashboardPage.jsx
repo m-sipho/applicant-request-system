@@ -3,6 +3,24 @@ import { allRequests, user, createRequest } from "../services/api"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
+function convertTimeToLocal(utc) {
+    // Check if the time has timezone
+    const hasTimezone = utc.includes('+') || utc.endsWith('Z');
+    if (!hasTimezone) {
+        utc += 'Z';
+    }
+
+    const dateObject = new Date(utc);
+    const month = dateObject.toLocaleString("default", {month: "short"});
+    const day = dateObject.getDate();
+    const year = dateObject.getFullYear();
+
+    const hours = String(dateObject.getHours()).padStart(2, '0');
+    const minutes = String(dateObject.getMinutes()).padStart(2, '0');
+
+    return `${month} ${day}, ${year} ${hours}:${minutes}`;
+}
+
 function DashboardPage() {
     const [requests, setRequests] = useState([])
     const [currentUser, setCurrentUser] = useState("")
@@ -22,22 +40,8 @@ function DashboardPage() {
 
                 // Change ISO format date to local time
                 data.map(request => {
-                    // Check if the time has timezone
                     let utcTime = request.created_at.replace(' ', 'T');
-                    const hasTimezone = utcTime.includes('+') || utcTime.endsWith('Z');
-                    if (!hasTimezone) {
-                        utcTime += 'Z';
-                    }
-
-                    const dateObject = new Date(utcTime);
-                    const month = dateObject.toLocaleString("default", {month: "short"});
-                    const day = dateObject.getDate();
-                    const year = dateObject.getFullYear();
-
-                    const hours = String(dateObject.getHours()).padStart(2, '0');
-                    const minutes = String(dateObject.getMinutes()).padStart(2, '0');
-
-                    request.created_at = `${month} ${day}, ${year} ${hours}:${minutes}`;
+                    request.created_at = convertTimeToLocal(utcTime);
 
                 })
 
@@ -62,20 +66,7 @@ function DashboardPage() {
 
             // Convert time to local
             let utcTime = data.created_at.replace(' ', 'T');
-            const hasTimezone = utcTime.includes('+') || utcTime.endsWith('Z');
-                if (!hasTimezone) {
-                    utcTime += 'Z';
-                }
-            
-            const dateObject = new Date(utcTime);
-            const month = dateObject.toLocaleString("default", {month: "short"});
-            const day = dateObject.getDate();
-            const year = dateObject.getFullYear();
-
-            const hours = String(dateObject.getHours()).padStart(2, '0');
-            const minutes = String(dateObject.getMinutes()).padStart(2, '0');
-
-            data.created_at = `${month} ${day}, ${year} ${hours}:${minutes}`;
+            data.created_at = convertTimeToLocal(utcTime);
 
             let copyOfRequests = [...requests];
             copyOfRequests.push(data)
