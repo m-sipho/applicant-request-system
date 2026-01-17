@@ -22,7 +22,13 @@ function DashboardPage() {
 
                 // Change ISO format date to local time
                 data.map(request => {
-                    const utcTime = request.created_at.replace(' ', 'T') + 'Z'
+                    // Check if the time has timezone
+                    let utcTime = request.created_at.replace(' ', 'T');
+                    const hasTimezone = utcTime.includes('+') || utcTime.endsWith('Z');
+                    if (!hasTimezone) {
+                        utcTime += 'Z';
+                    }
+
                     const dateObject = new Date(utcTime);
                     const month = dateObject.toLocaleString("default", {month: "short"});
                     const day = dateObject.getDate();
@@ -55,7 +61,12 @@ function DashboardPage() {
             console.log("Here is the data:", data)
 
             // Convert time to local
-            const utcTime = data.created_at.replace(' ', 'T') + 'Z';
+            let utcTime = data.created_at.replace(' ', 'T');
+            const hasTimezone = utcTime.includes('+') || utcTime.endsWith('Z');
+                if (!hasTimezone) {
+                    utcTime += 'Z';
+                }
+            
             const dateObject = new Date(utcTime);
             const month = dateObject.toLocaleString("default", {month: "short"});
             const day = dateObject.getDate();
