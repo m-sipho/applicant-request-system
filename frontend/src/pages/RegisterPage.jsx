@@ -1,4 +1,4 @@
-import { UserRoundPlus, UserRound, Mail, ArrowRight, Lock, AlertCircle, LoaderCircle, CircleCheckBig } from "lucide-react"
+import { AlertCircle, LoaderCircle, CircleCheckBig } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { registerUser } from "../services/api"
@@ -12,14 +12,6 @@ function RegisterPage() {
     const [success, setSuccess] = useState(false);
 
     const navigate = useNavigate();
-
-    // Checks if the user has already logged in
-    // useEffect(() => {
-    //     const token = sessionStorage.getItem("token");
-    //     if (token) {
-    //         navigate("/dashboard")
-    //     }
-    // }, [navigate]);
     
     // Show error for 3 seconds
     useEffect(() => {
@@ -81,10 +73,6 @@ function RegisterPage() {
         ) : (
         <div className="overall-container">
             <div className="form-container">
-                <div  className="lock">
-                    <UserRoundPlus size={30}/>
-                </div>
-
                 <div className="sub-header">
                     <h2>Create Account</h2>
                     <p className="muted">Join and get started today.</p>
@@ -93,24 +81,15 @@ function RegisterPage() {
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
                         <label>Full Name</label>
-                        <div>
-                            <UserRound className="input-icon" />
-                            <input type="text" disabled={loading} value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Itachi Uchiha" required/>
-                        </div>
+                        <input type="text" disabled={loading} value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Itachi Uchiha" required/>
                     </div>
                     <div className="input-wrapper">
-                        <label>Email</label>
-                        <div>
-                            <Mail className="input-icon" />
-                            <input type="email" disabled={loading} value={email} onChange={e => setEmail(e.target.value)} placeholder="your@example.com" required/>
-                        </div>
+                        <label>Email address</label>
+                        <input type="email" disabled={loading} value={email} onChange={e => setEmail(e.target.value)} placeholder="your@example.com" required/>
                     </div>
                     <div className="input-wrapper">
                         <label>Password</label>
-                        <div>
-                            <Lock className="input-icon" />
-                            <input type="password" disabled={loading} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required/>
-                        </div>
+                        <input type="password" disabled={loading} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required/>
                     </div>
 
                     {error && (
@@ -129,7 +108,6 @@ function RegisterPage() {
                         ) : (
                             <>
                                 <span>Sign Up</span>
-                                <ArrowRight className="arrow-right" />
                             </>
                         )}
                     </button>

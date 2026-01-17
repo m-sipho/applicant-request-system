@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Lock, Mail, ArrowRight, AlertCircle, LoaderCircle, ShieldUser, ContactRound, UserRound } from "lucide-react"
+import { AlertCircle, LoaderCircle, ShieldUser, ContactRound, UserRound } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
 import { loginUser } from "../services/api"
 
@@ -73,9 +73,6 @@ function LoginPage() {
     return (
         <div className="overall-container">
             <div className="form-container">
-                <div  className="lock">
-                    <Lock size={30}/>
-                </div>
 
                 <div className="sub-header">
                     <h2>Welcome Back</h2>
@@ -84,18 +81,12 @@ function LoginPage() {
 
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
-                        <label>Email</label>
-                        <div>
-                            <Mail className="input-icon" />
-                            <input type="email" disabled={loading} value={email} onChange={e => setEmail(e.target.value)} placeholder="your@example.com" required/>
-                        </div>
+                        <label>Email address</label>
+                        <input type="email" disabled={loading} value={email} onChange={e => setEmail(e.target.value)} placeholder="user@example.com" required/>
                     </div>
                     <div className="input-wrapper">
                         <label>Password</label>
-                        <div>
-                            <Lock className="input-icon" />
-                            <input type="password" disabled={loading} value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required/>
-                        </div>
+                        <input type="password" disabled={loading} value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required/>
                     </div>
 
                     {error && (
@@ -105,7 +96,7 @@ function LoginPage() {
                         </div>
                     )}
 
-                    <button type="submit" disabled={loading} className="btn-primary">
+                    <button type="submit" disabled={loading} className={`btn-primary ${loading ? 'disabled' : ''}`}>
                         {loading ? (
                             <>
                                 <LoaderCircle className="animate-spin" />
@@ -114,7 +105,6 @@ function LoginPage() {
                         ) : (
                             <>
                                 <span>Sign In</span>
-                                <ArrowRight className="arrow-right" />
                             </>
                         )}
                     </button>
