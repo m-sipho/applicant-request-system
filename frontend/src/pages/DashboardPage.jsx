@@ -1,4 +1,4 @@
-import ApplicantDashboard from "./dashboard/applicantDashboard"
+import ApplicantDashboard from "./dashboard/ApplicantDashboard"
 import { allRequests, user, createRequest } from "../services/api"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
