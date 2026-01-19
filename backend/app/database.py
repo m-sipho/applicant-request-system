@@ -13,7 +13,7 @@ if "sqlite" in DATABASE_URL:
 else:
     connect_arg = {}
 
-engine = create_engine(DATABASE_URL, connect_args=connect_arg)
+engine = create_engine(DATABASE_URL, connect_args=connect_arg, pool_size=20, max_overflow=10)
 
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
