@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Dict, Any, Optional
 from .request_types import RequestType
 from enum import Enum
@@ -56,13 +56,11 @@ class RequestOut(BaseModel):
     owner_id: int
     data: Dict[str, Any]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserOut(BaseModel):
     id: int
     email: EmailStr
     role: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
