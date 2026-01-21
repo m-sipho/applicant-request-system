@@ -1,15 +1,10 @@
 from pydantic import BaseModel, EmailStr
-from enum import Enum
+from users.schemas import RoleEnum
 
 class CreateUser(BaseModel):
     name: str
     email: EmailStr
     password: str
-
-class RoleEnum(str, Enum):
-    applicant = "applicant"
-    staff = "staff"
-    admin = "admin"
 
 class RegisterUser(BaseModel):
     id: int
