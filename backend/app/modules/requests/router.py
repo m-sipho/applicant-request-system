@@ -1,13 +1,12 @@
 from fastapi import APIRouter, status, Depends, HTTPException
-from schemas import ShowRequest, CreateRequest, RequestOut
+from .schemas import ShowRequest, CreateRequest, RequestOut
 from typing import Annotated, List
-from users.schemas import CreateUser
-from auth.service import require_applicants, get_current_user
+from app.modules.users.schemas import CreateUser
+from app.modules.auth.service import require_applicants, get_current_user
 from sqlalchemy.orm import Session
-from enums import REQUEST_TYPE_RULES
-from models import Request
-
-from database import get_db
+from .enums import REQUEST_TYPE_RULES
+from .models import Request
+from app.core.database import get_db
 
 router = APIRouter(
     prefix="/request",

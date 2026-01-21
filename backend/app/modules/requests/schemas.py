@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-from enums import RequestType, StatusEnum
+from .enums import RequestType, StatusEnum
 from typing import Dict, Any, Optional
 
 class ShowRequest(BaseModel):

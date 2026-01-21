@@ -1,10 +1,9 @@
 from fastapi import HTTPException, status
-from schemas import CreateUser, RoleEnum
-from auth.utils import Hash
+from .schemas import CreateUser, RoleEnum
 from sqlalchemy.orm import Session
 import os
-from models import User
-from auth.utils import Hash
+from .models import User
+from app.modules.auth.utils import Hash
 
 def create_applicant_user(request: CreateUser, db: Session):
     # Check for existing user

@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Integer, String, Enum, DateTime, JSON, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from enums import RequestType, StatusEnum
-from database import Base
+from .enums import RequestType, StatusEnum
+from app.core.database import Base
 
 class Request(Base):
     __tablename__ = "requests"

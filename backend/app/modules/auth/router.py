@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from schemas import CreateUser, RegisterUser, RoleEnum, Token
+from .schemas import CreateUser, RegisterUser, RoleEnum, Token
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
-from utils import Hash
-from service import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
+from .utils import Hash
+from .service import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 from datetime import timedelta
-from users.models import User
-from database import get_db
+from app.modules.users.models import User
+from app.core.database import get_db
 
 router = APIRouter(
     prefix="/auth",
