@@ -6,45 +6,13 @@ from typing import Annotated
 from utils import Hash
 from service import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 from datetime import timedelta
+from users.models import User
 from ...database import get_db
-from ...models import User
 
 router = APIRouter(
     prefix="/auth",
     tags=["Authentication"]
 )
-
-
-@router.post("/register", status_code=status.HTTP_201_CREATED, response_model=RegisterUser)
-def create_user(request: CreateUser, db: Session = Depends(get_db)):
-
-    # Check for existing user
-    existing = db.query(User).filter(User.email == request.email).first()
-    if existing:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Email already registered"
-        )
-    
-    # Check if the password has at least 8 characters
-    if len(request.password) < 8:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Password needs 8+ characters"
-        )
-    
-    # Create new applicant
-    new_user = User(
-        name=request.name,
-        email=request.email,
-        password=Hash.get_password_hashed(request.password),
-        role=RoleEnum.applicant
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-
-    return new_user
 
 
 @router.post("/login", status_code=status.HTTP_201_CREATED)
