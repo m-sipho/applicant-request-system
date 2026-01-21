@@ -57,6 +57,14 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Se
     
     return user
 
+def require_applicants(user: User = Depends(get_current_user)):
+    if user.role != RoleEnum.applicant:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: Only applicants can create requests"
+        )
+    return
+
 def require_staff(user: User = Depends(get_current_user)):
     if user.role not in [RoleEnum.admin, RoleEnum.staff]:
         raise HTTPException(
