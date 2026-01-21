@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 import jwt
 from schemas import TokenData
 from jwt.exceptions import InvalidTokenError
+from users.schemas import RoleEnum
 from ...database import get_db
 from ...models import User
 
@@ -54,4 +55,20 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Se
     if user is None:
         raise credentials_exception
     
+    return user
+
+def require_staff(user: User = Depends(get_current_user)):
+    if user.role not in [RoleEnum.admin, RoleEnum.staff]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: Only staff and admin has access."
+        )
+    return user
+
+def require_admin(user: User = Depends(get_current_user)):
+    if user.role != RoleEnum.admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied: Only admin has access."
+        )
     return user
