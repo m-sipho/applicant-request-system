@@ -6,11 +6,11 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
 import jwt
-from schemas import TokenData
+from .schemas import TokenData
 from jwt.exceptions import InvalidTokenError
-from users.schemas import RoleEnum
-from database import get_db
-from users.models import User
+from app.modules.users.schemas import RoleEnum
+from app.core.database import get_db
+from app.modules.users.models import User
 
 load_dotenv()
 
@@ -41,7 +41,7 @@ def verify_token(token: str, credentials_exception):
     return token_data
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
@@ -63,7 +63,7 @@ def require_applicants(user: User = Depends(get_current_user)):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Access denied: Only applicants can create requests"
         )
-    return
+    return user
 
 def require_staff(user: User = Depends(get_current_user)):
     if user.role not in [RoleEnum.admin, RoleEnum.staff]:
