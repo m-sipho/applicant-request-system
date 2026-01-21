@@ -1,13 +1,15 @@
 from fastapi import FastAPI
-from . import models
-from .database import engine
+from app.core.database import Base, engine
 from dotenv import load_dotenv
-from .routers import register, root, authentication, bootstrap, requests, staff, users
 from fastapi.middleware.cors import CORSMiddleware
+from app.modules.users.router import router as users_router, bootstrap
+from app.modules.auth.router import router as auth_router
+from app.modules.requests.router import router as requests_router
+
 
 load_dotenv()
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -21,13 +23,13 @@ app.add_middleware(
 
 ENABLE_ADMIN_CREATION = True
 
-app.include_router(root.router)
+@app.get("/")
+async def root():
+    return {"message": "Applicant Request System API. Go to /docs for API documentation."}
 
 if ENABLE_ADMIN_CREATION:
-    app.include_router(bootstrap.router)
+    app.include_router(bootstrap)
 
-app.include_router(authentication.router)
-app.include_router(requests.router)
-app.include_router(register.router)
-app.include_router(staff.router)
-app.include_router(users.router)
+app.include_router(auth_router)
+app.include_router(requests_router)
+app.include_router(users_router)
