@@ -10,7 +10,7 @@ from schemas import TokenData
 from jwt.exceptions import InvalidTokenError
 from users.schemas import RoleEnum
 from database import get_db
-from ...models import User
+from users.models import User
 
 load_dotenv()
 
