@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from enums import REQUEST_TYPE_RULES
 from models import Request
 
-from ...database import get_db
+from database import get_db
 
 router = APIRouter(
     prefix="/request",

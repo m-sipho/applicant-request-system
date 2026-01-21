@@ -4,7 +4,7 @@ from typing import Annotated
 from schemas import UserOut, CreateUser
 from auth.service import get_current_user, require_staff, require_admin
 from service import create_staff_user, create_applicant_user, create_admin_user
-from ...database import get_db
+from database import get_db
 
 router = APIRouter(
     prefix="/users",

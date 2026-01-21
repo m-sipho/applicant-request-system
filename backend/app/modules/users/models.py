@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Enum, DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from schemas import RoleEnum
-from ...database import Base
+from database import Base
 
 class User(Base):
     __tablename__ = "users"

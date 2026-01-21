@@ -7,7 +7,7 @@ from utils import Hash
 from service import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 from datetime import timedelta
 from users.models import User
-from ...database import get_db
+from database import get_db
 
 router = APIRouter(
     prefix="/auth",
